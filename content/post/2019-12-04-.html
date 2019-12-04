@@ -1,0 +1,35 @@
+---
+title: 区块链双花攻击
+author: Xiaohui Li
+date: '2019-12-04'
+slug: ''
+categories:
+  - blcokchain
+tags:
+  - bitcoin
+---
+
+
+
+<p>区块链中的双花攻击的建模，可以用酒鬼漫步的概率模型来描述：
+<img src="/post/2019-12-04-_files/酒鬼漫步.png" /></p>
+<p>记酒鬼向右一步的概率为<span class="math inline">\(p\)</span>,向左的概率为<span class="math inline">\(1- p = q\)</span>则当他处在<span class="math inline">\(x = n\)</span>的位置的时候，最后掉入悬崖<span class="math inline">\(x = 0\)</span>的概率为<span class="math inline">\(p(n)\)</span>,其概率为：
+<span class="math display">\[p(n) = (\frac{q}{p})^{n}\]</span>
+具体证明为：考虑<span class="math inline">\(p(1)\)</span>,即酒鬼走完第一步后，要么向左位于<span class="math inline">\(x = 0\)</span>处(此事件的发生概率为<span class="math inline">\(q\)</span>)，要么向右位于<span class="math inline">\(x = 2\)</span>处（此事件的发生概率为<span class="math inline">\(p\)</span>）,然后掉入悬崖，概率为：
+<span class="math display">\[p(1) =  (1- p) + p \times  p(2)\]</span></p>
+<p>进一步分析，从<span class="math inline">\(x = 2\)</span>最终到达<span class="math inline">\(x = 1\)</span>（可以是任意多个步骤）,然后最终<span class="math inline">\(x = 0\)</span>（可以是任意多个步骤）,事实上均是概率<span class="math inline">\(p(1)\)</span>,因此：
+<span class="math display">\[p(2) = p(1)^{2}\]</span>
+联立上述两个方程，得到<span class="math inline">\(p(1)\)</span>有意义的解为：<span class="math display">\[p(1) = \frac{1-p}{p} = \frac{q}{p}\]</span>
+因此可得到：
+<span class="math display">\[p\left(n \right) = p(1)^{n} = (\frac{q}{p})^{n}\]</span>
+其实上述问题和区块链双花共计的情况是一样的，记录:
+<span class="math inline">\(p\)</span> ：为诚实链挖出块挖出的概率；
+<span class="math inline">\(q\)</span>：为非诚实链挖出快的概率；
+<span class="math inline">\(p(n)\)</span>：即非诚实链落后<span class="math inline">\(n\)</span>个块后，追上诚实链的概率（可以想象为诚实链挖出块表示向右移动一格，否则向左移动一格，追赶上表示到达<span class="math inline">\(x = 0\)</span>状态），因此概率表达为：
+<span class="math display">\[ p(n)=\left\{
+\begin{aligned}
+ &amp; 1\quad q &gt; p \\
+ &amp; (\frac qp)^{n} \quad q\le p\\
+\end{aligned}
+\right.
+\]</span></p>
