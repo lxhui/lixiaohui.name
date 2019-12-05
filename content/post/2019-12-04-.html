@@ -22,10 +22,10 @@ tags:
 联立上述两个方程，得到<span class="math inline">\(p(1)\)</span>有意义的解为：<span class="math display">\[p(1) = \frac{1-p}{p} = \frac{q}{p}\]</span>
 因此可得到：
 <span class="math display">\[p\left(n \right) = p(1)^{n} = (\frac{q}{p})^{n}\]</span>
-其实上述问题和区块链双花共计的情况是一样的，记录:
-<span class="math inline">\(p\)</span> ：为诚实链挖出块挖出的概率；
-<span class="math inline">\(q\)</span>：为非诚实链挖出快的概率；
-<span class="math inline">\(p(n)\)</span>：即非诚实链落后<span class="math inline">\(n\)</span>个块后，追上诚实链的概率（可以想象为诚实链挖出块表示向右移动一格，否则向左移动一格，追赶上表示到达<span class="math inline">\(x = 0\)</span>状态），因此概率表达为：
+其实上述问题和区块链双花共计的情况是一样的，记录: \
+<span class="math inline">\(p\)</span> ：为诚实链挖出块挖出的概率； \
+<span class="math inline">\(q\)</span>：为非诚实链挖出块的概率； \
+<span class="math inline">\(p(n)\)</span>：即非诚实链落后<span class="math inline">\(n\)</span>个块后，追上诚实链的概率（可以想象为诚实链挖出块表示向右移动一格，否则向左移动一格，追赶上表示到达<span class="math inline">\(x = 0\)</span>状态），因此概率表达为： \
 <span class="math display">\[ p(n)=\left\{
 \begin{aligned}
  &amp; 1\quad q &gt; p \\
