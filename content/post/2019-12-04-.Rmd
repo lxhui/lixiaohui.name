@@ -64,7 +64,7 @@ q(n) & = \frac{\lambda^0e^{-\lambda}}{0!}(\frac{q}{p})^{z} +  \frac{\lambda^1e^{
 \end{split}
 \end{equation}
 $$
-相应地，我们探讨以下两种概率：
+相应地，我们探讨以下的两种概率：
 
 1. 给定的概率$q$以及诚实链领先的块数$z$,探讨最后攻击者成功的概率。
 
