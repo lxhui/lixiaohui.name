@@ -13,23 +13,20 @@ tags:
 
 <p>区块链中的双花攻击的建模，可以用酒鬼漫步的概率模型来描述：
 <img src="/post/2019-12-04-_files/酒鬼漫步.png" /></p>
-<p>记酒鬼向右一步的概率为<span class="math inline">\(p\)</span>,向左的概率为<span class="math inline">\(1- p = q\)</span>则当他处在<span class="math inline">\(x = n\)</span>的位置的时候，最后掉入悬崖<span class="math inline">\(x = 0\)</span>的概率为<span class="math inline">\(p(n)\)</span>,其概率为：
+<p>记酒鬼向右一步的概率为<span class="math inline">\(p\)</span>,向左的概率为<span class="math inline">\(1- p = q\)</span>,则当他处在<span class="math inline">\(x = n\)</span>的位置的时候，最后掉入悬崖<span class="math inline">\(x = 0\)</span>的概率<span class="math inline">\(p(n)\)</span>为：
 <span class="math display">\[p(n) = (\frac{q}{p})^{n}\]</span>
-具体证明为：考虑<span class="math inline">\(p(1)\)</span>,即酒鬼走完第一步后，要么向左位于<span class="math inline">\(x = 0\)</span>处(此事件的发生概率为<span class="math inline">\(q\)</span>)，要么向右位于<span class="math inline">\(x = 2\)</span>处（此事件的发生概率为<span class="math inline">\(p\)</span>）,之后掉入悬崖，概率为：
+具体证明为：考虑<span class="math inline">\(p(1)\)</span>,即酒鬼走完第一步后，要么向左位于<span class="math inline">\(x = 0\)</span>处(此事件的发生概率为<span class="math inline">\(q\)</span>)，要么向右位于<span class="math inline">\(x = 2\)</span>处（此事件的发生概率为<span class="math inline">\(p\)</span>）,之后掉入悬崖概率为：
 <span class="math display">\[p(1) =  (1- p) + p \times  p(2)\]</span></p>
-<p>进一步分析，从<span class="math inline">\(x = 2\)</span>最终到达<span class="math inline">\(x = 1\)</span>（可以是任意多个步骤）,然后最终<span class="math inline">\(x = 0\)</span>（可以是任意多个步骤）,事实上均是概率<span class="math inline">\(p(1)\)</span>,因此：
+<p>进一步分析，从<span class="math inline">\(x = 2\)</span>最终到达<span class="math inline">\(x = 1\)</span>（中间可以是向左、向右任意多个步骤,然后最终位于<span class="math inline">\(x = 0\)</span>）,事实上均是概率<span class="math inline">\(p(1)\)</span>,因此：
 <span class="math display">\[p(2) = p(1)^{2}\]</span>
-联立上述两个方程，得到<span class="math inline">\(p(1)\)</span>有意义的解为：<span class="math display">\[p(1) = \frac{1-p}{p} = \frac{q}{p}\]</span>
-因此可得到：
-<span class="math display">\[p\left(n \right) = p(1)^{n} = (\frac{q}{p})^{n}\]</span></p>
-<p>其实上述问题和区块链双花概率建模的情况是一样的，记录:
-<span class="math inline">\(p\)</span> ：为诚实链挖出块挖出的概率；
-<span class="math inline">\(q\)</span>：为非诚实链挖出快的概率；
-<span class="math inline">\(p(n)\)</span>：即非诚实链落后<span class="math inline">\(n\)</span>个块后，追上诚实链的概率（可以想象为诚实链挖出块表示向右移动一格，否则向左移动一格，追赶上表示到达<span class="math inline">\(x = 0\)</span>状态），因此概率表达为：</p>
-<p>其实上述问题和区块链双花共计的情况是一样的，记录:</p>
-<p><span class="math inline">\(p\)</span> ：为诚实链挖出块挖出的概率；</p>
-<p><span class="math inline">\(q\)</span>：为非诚实链挖出块的概率；</p>
-<p><span class="math inline">\(p(n)\)</span>：即非诚实链落后<span class="math inline">\(n\)</span>个块后，追上诚实链的概率（可以想象为诚实链挖出块表示向右移动一格，否则向左移动一格，追赶上表示到达<span class="math inline">\(x = 0\)</span>状态），因此概率表达为：</p>
+联立上述两个方程，得到<span class="math inline">\(p(1)\)</span>有意义的解为：
+<span class="math display">\[p(1) = \frac{1-p}{p} = \frac{q}{p}\]</span>
+因此进一步的可得到：
+<span class="math display">\[p\left(n \right) = p(1)^{n} = (\frac{q}{p})^{n}\]</span>
+其实上述问题和区块链双花攻击的情况是一样的，记录:</p>
+<p><span class="math inline">\(p\)</span> ：为诚实链挖出块挖出的概率;</p>
+<p><span class="math inline">\(q\)</span>：为竞争链挖出块的概率;</p>
+<p><span class="math inline">\(p(n)\)</span>：即竞争链落后<span class="math inline">\(n\)</span>个块后，追上诚实链的概率（可以想象为诚实链挖出块表示向右移动一格，否则向左移动一格，追赶上表示最终位置到达<span class="math inline">\(x = 0\)</span>状态），概率公式为：</p>
 <p><span class="math display">\[ p(n)=\left\{
 \begin{aligned}
  &amp; 1\quad q &gt; p \\
@@ -37,10 +34,10 @@ tags:
 \end{aligned}
 \right.
 \]</span>
-假定区块链攻击者潜在的进展服从泊松分布，其期望值为：
+进一步的，假定攻击者潜在的进展服从泊松分布，其期望值为：
 <span class="math display">\[\lambda = z\frac qp\]</span>
-关于这一点的解释可以理解为：竞争的的回合为z个，每个回合的胜率比为<span class="math inline">\(\frac qp\)</span>,因此分摊到每个回合的量为<span class="math inline">\(z\frac qp\)</span>.因此竞争链追赶上的概率为：
-<span class="math display">\[\sum _{k = 0} ^{\infty}\frac{\lambda^ke^{-\lambda}}{k!}.\left\{
+这一点可理解为：竞争的“回合”为z个，每个回合的胜率比为<span class="math inline">\(\frac qp\)</span>,因此分摊到每个回合的量为<span class="math inline">\(z\frac qp\)</span>.综合一下，竞争链追赶上的概率为(记录为<span class="math inline">\(q(n)\)</span>)：
+<span class="math display">\[q(n) = \sum _{k = 0} ^{\infty}\frac{\lambda^ke^{-\lambda}}{k!}.\left\{
 \begin{aligned}
  &amp; 1\quad k &gt; z \\
  &amp; (\frac qp)^{z-k} \quad k\le z\\
@@ -50,35 +47,33 @@ tags:
 <span class="math display">\[
 \begin{equation}
 \begin{split}
-p(n) &amp; = \frac{\lambda^0e^{-\lambda}}{0!}(\frac{q}{p})^{z} + \frac{\lambda^1e^{-\lambda}}{1!}(\frac{q}{p})^{z-1}+
-\cdots + \frac{\lambda^ze^{-\lambda}}{z!}(\frac{q}{p})^{z-z} + \frac{\lambda^ze^{-\lambda}}{(z+1)!}+ \cdots \\
- &amp;=  \frac{\lambda^0e^{-\lambda}}{0!} + \frac{\lambda^1e^{-\lambda}}{1!}+ \cdots + \frac{\lambda^ze^{-\lambda}}{z!} + \frac{\lambda^ze^{-\lambda}}{(z+1)!}+ \cdots  - (\frac{\lambda^0e^{-\lambda}}{0!} + \frac{\lambda^1e^{-\lambda}}{1!}+\cdots + \frac{\lambda^ze^{-\lambda}}{z!}) + 
- \frac{\lambda^0e^{-\lambda}}{0!}(\frac{q}{p})^{z} + \frac{\lambda^1e^{-\lambda}}{1!}(\frac{q}{p})^{z-1} + \cdots + \frac{\lambda^ze^{-\lambda}}{z!}(\frac{q}{p})^{z-z}\\
- &amp; = 
-1 - \sum _{k = 0} ^{z}\frac{\lambda^ke^{-\lambda}}{k!}(1-(\frac qp)^{z-k})
+q(n) &amp; = \frac{\lambda^0e^{-\lambda}}{0!}(\frac{q}{p})^{z} +  \frac{\lambda^1e^{-\lambda}}{1!}(\frac{q}{p})^{z-1}+
+\cdots +\frac{\lambda^ze^{-\lambda}}{z!}(\frac{q}{p})^{z-z} + \frac{\lambda^ze^{-\lambda}}{(z+1)!}+ \cdots \\
+ &amp;=  \frac{\lambda^0e^{-\lambda}}{0!} + \frac{\lambda^1e^{-\lambda}}{1!}+ \cdots + \frac{\lambda^ze^{-\lambda}}{z!} + \frac{\lambda^ze^{-\lambda}}{(z+1)!}+ \cdots  - (\frac{\lambda^0e^{-\lambda}}{0!} + \frac{\lambda^1e^{-\lambda}}{1!}+\cdots + \frac{\lambda^ze^{-\lambda}}{z!}) + \\
+ &amp; \frac{\lambda^0e^{-\lambda}}{0!}(\frac{q}{p})^{z} + 
+ \frac{\lambda^1e^{-\lambda}}{1!}(\frac{q}{p})^{z-1} + \cdots + \frac{\lambda^ze^{-\lambda}}{z!}(\frac{q}{p})^{z-z} \\
+ &amp; = 1 - \sum _{k = 0} ^{z}\frac{\lambda^ke^{-\lambda}}{k!}(1-(\frac qp)^{z-k})
 \end{split}
 \end{equation}
 \]</span>
-相应的，我们探讨一下两种概率(两种前后的正、反的逻辑)：</p>
+相应地，我们探讨以下两种概率：</p>
 <ol style="list-style-type: decimal">
-<li><p>给定的概率<span class="math inline">\(q\)</span>以及给定的落后的块数<span class="math inline">\(z\)</span>,则最后攻击者成功的概率。</p></li>
-<li><p>给定的概率<span class="math inline">\(q\)</span>,要诚实链领先多少块后，才能保证攻击者成功的概率不超过给定值。</p></li>
+<li><p>给定的概率<span class="math inline">\(q\)</span>以及诚实链领先的块数<span class="math inline">\(z\)</span>,探讨最后攻击者成功的概率。</p></li>
+<li><p>给定的概率<span class="math inline">\(q\)</span>,要诚实链领先多少块后，才能保证攻击者成功的概率不超过给定的概率值。</p></li>
 </ol>
-<p>问题1的仿真：</p>
+<p>问题1的仿真(竞争链概率为<span class="math inline">\(0.1\)</span>和<span class="math inline">\(0.3\)</span>)：</p>
 <pre class="r"><code>library(magrittr)
 options(scipen = 20)
-mc_blockchain &lt;- function(q,z){
-  p &lt;- 1-q
-  lambda &lt;- z*q/p
-  pn &lt;- 1 - sum(lambda^(0:z)*exp(-lambda)/factorial(0:z)*(1 - (q/p)^(z-(0:z))))
-  return(pn)
+mc_blockchain &lt;- function(q, z) {
+    p &lt;- 1 - q
+    lambda &lt;- z * q/p
+    pn &lt;- 1 - sum(lambda^(0:z) * exp(-lambda)/factorial(0:z) * (1 - (q/p)^(z - (0:z))))
+    return(pn)
 }
 
-p1 &lt;- lapply(0:10, function(x) mc_blockchain(q = 0.1,x)) %&gt;%
-  unlist %&gt;%
-  round(10)
-p1_df &lt;- data.frame(z = 0:10,P = p1)
-colnames(p1_df) &lt;- c(&quot;Z&quot;,&quot;P&quot;)
+p1 &lt;- lapply(0:10, function(x) mc_blockchain(q = 0.1, x)) %&gt;% unlist %&gt;% round(10)
+p1_df &lt;- data.frame(z = 0:10, P = p1)
+colnames(p1_df) &lt;- c(&quot;Z&quot;, &quot;P&quot;)
 knitr::kable(p1_df)</code></pre>
 <table>
 <thead>
@@ -134,11 +129,10 @@ knitr::kable(p1_df)</code></pre>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>p2 &lt;- lapply(seq(0,50,by = 5), function(x) mc_blockchain(q = 0.3,x)) %&gt;%
-  unlist %&gt;%
-  round(10)
-p2_df &lt;- data.frame(z = seq(0,50,by = 5),P = p2)
-colnames(p2_df) &lt;- c(&quot;Z&quot;,&quot;P&quot;)
+<pre class="r"><code>p2 &lt;- lapply(seq(0, 50, by = 5), function(x) mc_blockchain(q = 0.3, x)) %&gt;% unlist %&gt;% 
+    round(10)
+p2_df &lt;- data.frame(z = seq(0, 50, by = 5), P = p2)
+colnames(p2_df) &lt;- c(&quot;Z&quot;, &quot;P&quot;)
 knitr::kable(p2_df)</code></pre>
 <table>
 <thead>
@@ -194,22 +188,22 @@ knitr::kable(p2_df)</code></pre>
 </tr>
 </tbody>
 </table>
-<p>问题2的仿真：</p>
-<pre class="r"><code>mc_z &lt;- function(p,q){
-  z &lt;- 0
-  while (TRUE) {
-    pn &lt;- mc_blockchain(q = q,z = z)
-    if(pn &lt;= p){
-      break
-    } else{
-      z &lt;- z + 1
+<p>问题2的仿真：(概率不超过<span class="math inline">\(0.1\%\)</span>)</p>
+<pre class="r"><code>mc_z &lt;- function(p, q) {
+    z &lt;- 0
+    while (TRUE) {
+        pn &lt;- mc_blockchain(q = q, z = z)
+        if (pn &lt;= p) {
+            break
+        } else {
+            z &lt;- z + 1
+        }
     }
-  }
-  return(z)
+    return(z)
 }
-z1 &lt;- lapply(X = seq(0.1,0.42,by = 0.01),FUN = function(x) mc_z(p = 0.1/100,q = x)) %&gt;%
-  unlist
-df_z1 &lt;- data.frame(q = seq(0.1,0.42,by = 0.01),z = z1)
+z1 &lt;- lapply(X = seq(0.1, 0.42, by = 0.01), FUN = function(x) mc_z(p = 0.1/100, q = x)) %&gt;% 
+    unlist
+df_z1 &lt;- data.frame(q = seq(0.1, 0.42, by = 0.01), z = z1)
 knitr::kable(df_z1)</code></pre>
 <table>
 <thead>
