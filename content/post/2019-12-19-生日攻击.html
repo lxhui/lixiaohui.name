@@ -1,0 +1,46 @@
+---
+title: 生日攻击
+author: ''
+date: '2019-12-19'
+slug: 生日攻击
+categories:
+  - blcokchain
+tags:
+  - bitcoin
+---
+
+
+
+<div id="hash碰撞" class="section level2">
+<h2>Hash碰撞</h2>
+<p>Hash碰撞是说不同的输入产生了同样的Hash值，这种事件会带来很大的安全性问题。</p>
+</div>
+<div id="生日攻击" class="section level2">
+<h2>生日攻击</h2>
+<p>Hash碰撞背后的数学模型叫做“生日问题”，具体描述为：一个班多少人，才能以给定的概率（<span class="math inline">\(5\%\)</span>）保证所有人生日不在同一天。我们定义事件：</p>
+<p><span class="math inline">\(p(n)\)</span>：在一个有n个人的班级里，至少有两个人生日相同；</p>
+<p><span class="math inline">\(\bar p(n)\)</span>: 所有人生日均不相同；</p>
+<p><span class="math display">\[
+\begin{aligned}
+p(n) &amp; = 1 - \bar p(n) \\
+       &amp; = 1 - \frac {365}{365}\times \frac {364}{365} \times \cdots \times \frac {365 - (n-1)}{365}  \\
+       &amp; = 1- 1\times(1 - \frac {1}{365})\times (1 - \frac{2}{365}) \times \cdots \times(1 -  \frac{n-1}{365})
+       \end{aligned}\]</span></p>
+<p>又注意到,并结合泰勒展开相关知识，当<span class="math inline">\(x\)</span>很小时：
+<span class="math display">\[e^x = 1+x\]</span>
+成立，因此：
+<span class="math display">\[\begin{aligned}
+p(n) &amp; = 1- 1\times(1 - \frac {1}{365})\times (1 - \frac{2}{365}) \times \cdots \times(1 -  \frac{n-1}{365}) \\
+&amp; \approx  1 - 1 \times e^{-\frac{1}{365}}\times e^{-\frac{2}{365}}\times \cdots e^{-\frac{n-1}{365}} \\
+&amp;\approx 1- e^{-\frac{n(n-1)/2}{365}}
+\end{aligned}\]</span>
+更一般化的：
+<span class="math display">\[p(n) \approx 1- e^{-\frac{n(n-1)}{2H}}\]</span>
+其中<span class="math inline">\(H\)</span>表示输出空间。</p>
+</div>
+<div id="应用分析" class="section level2">
+<h2>应用分析</h2>
+<p>Bitcoin中用的<span class="math inline">\(sha256\)</span>，输出长度为64，输出空间为:26个小写字母加0~9数组，共36个备选字符，则
+<span class="math inline">\(H = 36^{64}\)</span>,碰撞概率:
+<span class="math display">\[1 - e^{-\frac{2(2-1)}{2*36^{64}}}\approx 0\]</span></p>
+</div>
