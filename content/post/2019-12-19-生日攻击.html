@@ -27,7 +27,7 @@ p(n) &amp; = 1 - \bar p(n) \\
        &amp; = 1- 1\times(1 - \frac {1}{365})\times (1 - \frac{2}{365}) \times \cdots \times(1 -  \frac{n-1}{365})
        \end{aligned}\]</span></p>
 <p>又注意到,并结合泰勒展开相关知识，当<span class="math inline">\(x\)</span>很小时：
-<span class="math display">\[e^x = 1+x\]</span>
+<span class="math display">\[e^x \approx 1+x\]</span>
 成立，因此：
 <span class="math display">\[\begin{aligned}
 p(n) &amp; = 1- 1\times(1 - \frac {1}{365})\times (1 - \frac{2}{365}) \times \cdots \times(1 -  \frac{n-1}{365}) \\
@@ -41,6 +41,6 @@ p(n) &amp; = 1- 1\times(1 - \frac {1}{365})\times (1 - \frac{2}{365}) \times \cd
 <div id="应用分析" class="section level2">
 <h2>应用分析</h2>
 <p>Bitcoin中用的<span class="math inline">\(sha256\)</span>，输出长度为64，输出空间为:26个小写字母加0~9数组，共36个备选字符，则
-<span class="math inline">\(H = 36^{64}\)</span>,碰撞概率:
-<span class="math display">\[1 - e^{-\frac{2(2-1)}{2*36^{64}}}\approx 0\]</span></p>
+<span class="math inline">\(H = 36^{64}\)</span>,碰撞概率为
+：<span class="math display">\[1 - e^{-\frac{2(2-1)}{2*36^{64}}} \approx 0\]</span></p>
 </div>
