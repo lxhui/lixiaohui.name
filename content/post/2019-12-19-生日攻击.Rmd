@@ -33,7 +33,7 @@ p(n) & = 1 - \bar p(n) \\
        
        
 又注意到,并结合泰勒展开相关知识，当$x$很小时：
-$$e^x = 1+x$$
+$$e^x \approx 1+x$$
 成立，因此：
 $$\begin{aligned}
 p(n) & = 1- 1\times(1 - \frac {1}{365})\times (1 - \frac{2}{365}) \times \cdots \times(1 -  \frac{n-1}{365}) \\
