@@ -1,0 +1,64 @@
+---
+title: ECDSA(Digital Signatures)
+author: ''
+date: '2020-02-29'
+slug: ecdsa-digital-signatures
+categories:
+  - blcokchain
+tags:
+  - bitcoin
+---
+
+数字签名是一种将相当于现实世界中的盖章、签字的功能在计算机世界中进行实现的技术。使用数字签名可以识别篡改和伪装，还可以防止否认。
+
+# 公私钥生成
+
+$$Q_a = d_A*G$$
+
+- $d_A$:私钥
+- $G$ :参考点，reference point
+- $Q_a$:公钥
+
+# 数字签名
+
+1. 获取$R$
+$$P = k*G$$
++ $k$为临时私钥
++ 选取$P$的$x$坐标，即为$R$.
+2. 获取$S$
+$$S = k^{-1}(Hash(m) + d_A*R)\quad mod\quad p$$
++ $m$为需要签名的消息
+
+# 签名验证
+
+$$P = S^{-1}*Hash(m)*G + S^{-1}*R*Q_a$$
+
+若$P$与$R$相等,则签名验证通过。
+这是因为：
+$$
+\begin{equation}
+\begin{split}
+P & =  S^{-1}*Hash(m)*G + S^{-1}*R*Q_a \\
+  & = S^{-1}*Hash(m)*G + S^{-1}*R*d_A*G \\
+  & = S^{-1}(Hash(m) + R*d_A)*G \\
+  & = k*G
+\end{split}
+\end{equation}
+$$
+
+
+# $k$随机性说明
+保证$k$的随机性是非常重要的，若再两次签名中使用了同样的$k$,则会导致私钥的泄露，这是因为：
+$$
+\begin{equation}
+\begin{split}
+S - S' & = k^{-1}(Hash(m) - Hash(m') + d_A*R - d_A*R) \\
+       & =k^{-1}(Hash(m) - Hash(m'))
+\end{split}
+\end{equation}
+$$
+
+从而计算得到:
+$$k = \frac{Hash(m) - Hash(m')}{S- S'}$$
+进一步地：
+$$d_A = \frac{S*K - Hash(m)}{R}$$
