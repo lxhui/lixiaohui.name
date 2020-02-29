@@ -33,7 +33,7 @@ $$S = k^{-1}(Hash(m) + d_A*R)\quad mod\quad p$$
 
 $$P = S^{-1}*Hash(m)*G + S^{-1}*R*Q_a$$
 
-若$P$与$R$相等,则签名验证通过。
+若$P$与$R$相等,则签名验证有效。
 这是因为：
 $$
 \begin{equation}
