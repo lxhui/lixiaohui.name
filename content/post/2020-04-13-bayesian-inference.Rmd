@@ -34,6 +34,7 @@ likehood_vals <- dbinom(x = 4,size = 15,prob = p_vals)
 
 ## Third
 
+
  Use Bayes' theorem and the information from previous parts to calculate the posterior distribution for each of the 100 values of $p$. Plot and describe the posterior distribution.
 ```{r}
 marg_likehood <- sum(likehood_vals * p_prior)
