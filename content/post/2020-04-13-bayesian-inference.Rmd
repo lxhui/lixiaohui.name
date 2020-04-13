@@ -1,0 +1,55 @@
+---
+title: "Bayesian Inference"
+author: ''
+date: '2020-04-13'
+slug: bayesian_Inference
+tags: []
+categories: bayesian
+---
+
+
+## 问题描述
+ 
+ 15次独立的抛硬币试验，正面的概率为$p$,未知量。利用贝叶斯定理做一些推断
+ 将 $X_1,...,X_n$ 代表试验， ($X_i = 1$ 表示正面, 0 反面). 贝叶斯定理说的是:
+
+$$\pi( p \, | \, X_1,...,X_n) = \frac{L( X_1,...,X_n \, | \, p)\pi(p)}{\pi(X_1,...,X_n)},$$ 
+
+其中 $\pi( p \, | \, X_1,...,X_n)$ 为 $p$ 的先验概率分布, $L( X_1,...,X_n \, | \, p)$ 为似然函数, $\pi(p)$ 关于 $p$的先验概率分布,  $\pi(X_1,...,X_n)$ 为“证据” (可以利用全概率公式计算). 
+
+## First
+ Descretize the parameter space by making a grid of $m = 100$ values for $p$ between 0 and 1. Then, create a vector of prior probabilities that assigns equally likely probabilities to each value of $p$.
+ 
+```{r}
+library(tidyverse)
+library(ggplot2)
+p_vals <- seq(0,1,length.out = 100) 
+p_prior <- 1/100
+```
+## Second
+We flip the coin 15 times, and count 4 heads. Calculate the probability of getting 4 heads in 15 tosses under each value of $p$  given above. These are values of the likelihood function.
+```{r}
+likehood_vals <- dbinom(x = 4,size = 15,prob = p_vals)
+```
+
+## Third
+
+ Use Bayes' theorem and the information from previous parts to calculate the posterior distribution for each of the 100 values of $p$. Plot and describe the posterior distribution.
+```{r}
+marg_likehood <- sum(likehood_vals * p_prior)
+p_posterior <- (likehood_vals*p_prior)/marg_likehood
+df_bayes <- tibble(
+p_vals,
+likehood_vals,
+p_prior,
+p_posterior
+)
+ggplot(df_bayes,aes(x = p_vals, y = p_posterior)) +
+    geom_point() +
+    geom_segment(aes(x = p_vals, xend = p_vals, y = p_posterior, yend = 0)) +
+    xlab(expression(p)) +
+    ylab(expression(paste("P(", p, "|D)"))) +
+    ggtitle("Posterior Distribution")
+```
+ 
+ 
