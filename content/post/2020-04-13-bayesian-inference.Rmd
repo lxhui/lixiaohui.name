@@ -20,7 +20,7 @@ $$\pi( p \, | \, X_1,...,X_n) = \frac{L( X_1,...,X_n \, | \, p)\pi(p)}{\pi(X_1,.
 ## First
  Descretize the parameter space by making a grid of $m = 100$ values for $p$ between 0 and 1. Then, create a vector of prior probabilities that assigns equally likely probabilities to each value of $p$.
  
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(ggplot2)
 p_vals <- seq(0,1,length.out = 100) 
