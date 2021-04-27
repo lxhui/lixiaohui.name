@@ -1,0 +1,15 @@
+---
+title: 假设检验的两类错误说明
+author: 李晓辉
+date: '2021-04-27'
+slug: ''
+categories:
+  - Causal Inference
+tags:
+  - 统计学
+---
+
+<script src="假设检验的两类错误说明_files/header-attrs/header-attrs.js"></script>
+
+
+<p>我们知道，<span class="math inline">\(\alpha\)</span>错误是由实际推断原理引起的,即是由小概率事件的发生引起的，所以有理由将所有小概率事件发生的概率的和即显著性水平看作<span class="math inline">\(\alpha\)</span>错误发生的概率，这当然可以进一步区分双侧检验和单侧检验两种情况。但是，犯<span class="math inline">\(\beta\)</span>错误的概率的计算就比前者复杂得多，这是由<span class="math inline">\(\beta\)</span>错误出现的原因复杂所至。<span class="math inline">\(\beta\)</span>错误的出现纯属逻辑上的，在总体参数不知道的情况下是不可能知道它的大小的。所以，在讨论<span class="math inline">\(\beta\)</span>错误的计算之前，我们先得假设有一个全知全能的精灵,它知道真实的总体参数<span class="math inline">\(\mu\)</span>的值，这样精灵就会通过样本统计量，根据概率分布理论得到一个正确的、不犯错误的接受域(<span class="math inline">\(Z_1 - Z_2\)</span> )，称之精灵接受域。相比之下，我们并不是精灵，我们并不知道真实的总体参数的值，而只是假定了一个总体参数 <span class="math inline">\(\mu_0\)</span>，对应了一个接受域(<span class="math inline">\(Z_3 - Z_4\)</span>)，称之人为接受域。显然，由于<span class="math inline">\(\mu = \mu_0\)</span>，精灵的接受域与人为接受域有重合的区域，也有不重合的区域，这个重合的区域的面积便是<span class="math inline">\(\beta\)</span>错误出现的概率。这就是说,两个接受区域的重合部分的面积是犯<span class="math inline">\(\beta\)</span>错误的概率，而用“1”减去这个概率便是不犯<span class="math inline">\(\beta\)</span>错误的概率检验功效。</p>
