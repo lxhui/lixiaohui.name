@@ -2,6 +2,10 @@
 .Rhistory
 .RData
 .Ruserdata
-public
+/public
 static/figures
-blogdown
+/blogdown
+/public/
+/resources/
+.DS_Store
+Thumbs.db
