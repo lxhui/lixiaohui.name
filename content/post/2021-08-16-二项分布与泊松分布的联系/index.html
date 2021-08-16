@@ -1,0 +1,45 @@
+---
+title: "二项分布与泊松分布的联系"
+author: "李晓辉"
+date: '2021-08-16'
+slug: 二项分布与泊松分布的联系
+categories: Statistics
+tags: 统计学
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="前言" class="section level2">
+<h2>前言</h2>
+<p>当试验次数 <span class="math inline">\(n\)</span> 变得非常大而成功概率 <span class="math inline">\(p\)</span>
+很小时,泊松分布可以视作是二项式分布的一个极限情况,即如果 <span class="math inline">\(n\leq 100\)</span> 且
+<span class="math inline">\(np\leq10\)</span>，泊松分布（取 <span class="math inline">\(\lambda = np\)</span>）可以很好地近似二项式分布。</p>
+<p>这个性质特别有用，因为当 <span class="math inline">\(n\)</span>
+很大时，计算与二项式分布相关的概率公式中的组合项很困难。</p>
+</div>
+<div id="论证" class="section level2">
+<h2>论证</h2>
+<p>假定在<span class="math inline">\(n\)</span> 次试验中观测到 <span class="math inline">\(x\)</span>
+次成功的二项式概率，以及前面提到的成功概率<span class="math inline">\(p\)</span>，概率如下公式所示：
+<span class="math display">\[P(x) = C_{n}^{x}p^xq^{n-x}\]</span> 以<span class="math inline">\(\lambda\)</span>表示二项分布参数<span class="math inline">\(np\)</span>，即：
+<span class="math display">\[p=\frac{λ}{n}\]</span> 并且考虑到<span class="math inline">\(q=1−p\)</span>，则有： <span class="math display">\[q=1−\frac{λ}{n}\]</span> 重写
+<span class="math inline">\(P(x)\)</span>，得到 :
+<span class="math display">\[P(x)=C_{n}^{x}(\frac{\lambda}{n})^{x}(1−\frac{\lambda}{n})^{n−x}\]</span>
+进一步的展开：
+<span class="math display">\[P(x)=\frac{n(n-1)(n-2 )⋯(n−x+1)}{x!}(\frac{\lambda}{n})^{x}(1−\frac{\lambda}{n})^{n−x}\]</span>
+进一步的变换：
+<span class="math display">\[P(x)=\frac{n}{n}.\frac{n-1}{n}\frac{n-2}{n}⋯\frac{n−x+1}{n}.\frac{\lambda^{x}}{x!}(1−\frac{\lambda}{n})^{n−x}\]</span>
+更进一步的变换：
+<span class="math display">\[P(x)=\frac{n}{n}.\frac{n-1}{n}\frac{n-2}{n}⋯\frac{n−x+1}{n}.\frac{\lambda^{x}}{x!}.(1−\frac{\lambda}{n})^{-x}(1−\frac{\lambda}{n})^{n}\]</span>
+容易看出，如果我们在<span class="math inline">\(n\)</span> 接近无穷大时取极限，保持 <span class="math inline">\(x\)</span> 和 <span class="math inline">\(\lambda\)</span>
+固定，则该表达式中的倒数第二项 将趋向于 1，最后一项趋向于 <span class="math inline">\(e^{-λ}\)</span>,因此:
+<span class="math display">\[\lim_{n→\infty}P(x)=\frac{e^{−λ}λ^{x}}{x!}\]</span> 即我们想要的。</p>
+</div>
+<div id="一个应用" class="section level2">
+<h2>一个应用</h2>
+<p>在<span class="math inline">\(Bitcoin\)</span>的挖矿中，<span class="math inline">\(Hash\)</span>尝试不同<span class="math inline">\(nonce\)</span>的过程可视作二项过程，其可以使用<span class="math inline">\(Possion\)</span>过程来近似。</p>
+</div>

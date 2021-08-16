@@ -1,0 +1,42 @@
+---
+title: "二项分布与泊松分布的联系"
+author: "李晓辉"
+date: '2021-08-16'
+slug: 二项分布与泊松分布的联系
+categories: Statistics
+tags: 统计学
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+## 前言
+
+当试验次数 $n$ 变得非常大而成功概率 $p$
+很小时,泊松分布可以视作是二项式分布的一个极限情况,即如果 $n\leq 100$ 且
+$np\leq10$，泊松分布（取 $\lambda = np$）可以很好地近似二项式分布。
+
+这个性质特别有用，因为当 $n$
+很大时，计算与二项式分布相关的概率公式中的组合项很困难。
+
+## 论证
+
+假定在$n$ 次试验中观测到 $x$
+次成功的二项式概率，以及前面提到的成功概率$p$，概率如下公式所示：
+$$P(x) = C_{n}^{x}p^xq^{n-x}$$ 以$\lambda$表示二项分布参数$np$，即：
+$$p=\frac{λ}{n}$$ 并且考虑到$q=1−p$，则有： $$q=1−\frac{λ}{n}$$ 重写
+$P(x)$，得到 :
+$$P(x)=C_{n}^{x}(\frac{\lambda}{n})^{x}(1−\frac{\lambda}{n})^{n−x}$$
+进一步的展开：
+$$P(x)=\frac{n(n-1)(n-2 )⋯(n−x+1)}{x!}(\frac{\lambda}{n})^{x}(1−\frac{\lambda}{n})^{n−x}$$
+进一步的变换：
+$$P(x)=\frac{n}{n}.\frac{n-1}{n}\frac{n-2}{n}⋯\frac{n−x+1}{n}.\frac{\lambda^{x}}{x!}(1−\frac{\lambda}{n})^{n−x}$$
+更进一步的变换：
+$$P(x)=\frac{n}{n}.\frac{n-1}{n}\frac{n-2}{n}⋯\frac{n−x+1}{n}.\frac{\lambda^{x}}{x!}.(1−\frac{\lambda}{n})^{-x}(1−\frac{\lambda}{n})^{n}$$
+容易看出，如果我们在$n$ 接近无穷大时取极限，保持 $x$ 和 $\lambda$
+固定，则该表达式中的倒数第二项 将趋向于 1，最后一项趋向于 $e^{-λ}$,因此:
+$$\lim_{n→\infty}P(x)=\frac{e^{−λ}λ^{x}}{x!}$$ 即我们想要的。
+
+## 一个应用
+
+在$Bitcoin$的挖矿中，$Hash$尝试不同$nonce$的过程可视作二项过程，其可以使用$Possion$过程来近似。
